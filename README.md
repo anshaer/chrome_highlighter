@@ -39,6 +39,17 @@
 * **🔗 連結防護**：使用 `TreeWalker` 純文字節點替換技術，高亮同時完全不破壞文字超連結 (`<a>`) 與圖片超連結 (`<a><img />`) 的功能與排版。
 * **🧪 測試頁支援**：可直接開啟 [線上測試頁面](https://anshaer.github.io/chrome_highlighter/test.html) 或本地 `test.html` 驗證各類異字元與連結變色效果。
 
+<!-- 調整寬度與置中範例 -->
+<p align="center">
+  <img src="./01.pbg"  width="400">
+</p>
+<p align="center">
+  <img src="./01.pbg"  width="400">
+</p>
+
+
+
+
 ---
 
 ## 📂 專案檔案結構
