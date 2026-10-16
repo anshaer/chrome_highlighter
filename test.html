@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <title>chrome_highlighter v1.1 測試頁面</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+      font-size: 16px;
+      padding: 30px;
+      line-height: 1.8;
+      background-color: #f3f4f6;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    h2 {
+      margin-top: 0;
+      color: #111827;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 8px;
+    }
+    h3 {
+      margin-top: 0;
+      font-size: 16px;
+      color: #2563eb;
+    }
+    a {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+    .img-link-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid #d1d5db;
+      padding: 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      background: #fafafa;
+    }
+    .version-tag {
+      font-size: 12px;
+      color: #2563eb;
+      background: #eff6ff;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🛡️ chrome_highlighter <span class="version-tag">v1.1</span> 測試頁面</h2>
+
+    <!-- 1. 西里爾字母測試 -->
+    <div class="card">
+      <h3>1. 西里爾字母（偽造英文同形字）測試</h3>
+      <p><b>正常英文：</b> paypal.com / apple.com / twitter.com</p>
+      <p><b>混用西里爾字母：</b> p&#x0430;yp&#x0430;l.com / &#x0430;&#x0440;&#x0440;l&#x0435;.com / twitt&#x0435;r.com</p>
+    </div>
+
+    <!-- 2. 特殊數學符號 / 花體字測試 -->
+    <div class="card">
+      <h3>2. 特殊數學符號 / 花體字 (Math Unicode) 測試</h3>
+      <p><b>花體字：</b> 𝒫𝑜𝓁𝓎𝓂𝒶𝓇𝓀𝑒𝓉 / 𝒫𝒶𝓎𝒫𝒶𝓁</p>
+      <p><b>粗體數學字：</b> 𝗛𝗲𝗹𝗹𝗼 𝗪𝗼𝗿𝗹𝗱</p>
+      <p><b>雙線體：</b> ℙ𝕠𝕝𝕪𝕞𝕒𝔯𝕜𝕖𝔱</p>
+    </div>
+
+    <!-- 3. 非 ASCII 字元測試 -->
+    <div class="card">
+      <h3>3. 非 ASCII 字元（全形字與特殊標點）測試</h3>
+      <p><b>全形英文與數字：</b> ａｂｃ１２３</p>
+      <p><b>全形標點符號：</b> Hello World！ 這是一段測試文字？</p>
+    </div>
+
+    <!-- 4. 文字超連結測試 -->
+    <div class="card">
+      <h3>4. 文字超連結 &lt;a&gt; 測試</h3>
+      <p><b>正常連結：</b> <a href="https://apple.com" target="_blank">https://apple.com</a></p>
+      <p><b>偽造連結：</b> <a href="https://apple.com" target="_blank">https://&#x0430;&#x0440;&#x0440;l&#x0435;.com（點擊測試，功能不受影響）</a></p>
+    </div>
+
+    <!-- 5. 圖片超連結測試 -->
+    <div class="card">
+      <h3>5. 圖片超連結 &lt;a&gt;&lt;img /&gt;&lt;/a&gt; 測試</h3>
+      <a href="https://paypal.com" target="_blank" class="img-link-box">
+        <img src="https://via.placeholder.com/80x40/2563eb/ffffff?text=PayPal" alt="p&#x0430;yp&#x0430;l 標誌">
+        <span>點擊進入 PayPal（含異字元標題：p&#x0430;yp&#x0430;l.com）</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
