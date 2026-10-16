@@ -1,6 +1,9 @@
-# 🛡️ 異樣字元與網址檢測器 (Char Highlighter & URL Inspector)
+# 🛡️ 異樣字元與網址檢測器 v1.1 (Chrome Highlighter)
 
 一個基於 **Chrome Manifest V3** 開發的擴充功能，專門用於偵測與標示網頁中的混淆字元、釣魚同形字（Homoglyphs，如用西里爾字母假冒英文）、特殊 Unicode 符號，並提供即時網址 / 連結貼上分析功能。
+
+* **GitHub Pages 網頁展示版**：[https://anshaer.github.io/chrome_highlighter/](https://anshaer.github.io/chrome_highlighter/)
+* **當前版本**：`v1.1`
 
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
@@ -21,12 +24,13 @@
 
 ---
 
-## 📂 專案檔案結構
+## 📂 專案檔案結構與下載說明
 
 ```text
-char-highlighter/
-├── manifest.json   # 擴充功能核心設定檔 (Manifest V3)
+chrome_highlighter/
+├── manifest.json   # 擴充功能核心設定檔 (v1.1)
 ├── popup.html      # 純中文 UI 介面（含版權宣告）
 ├── popup.js        # 檢測演算法與設定儲存邏輯
 ├── content.js      # 網頁 DOM 注入與高亮渲染腳本
+├── index.html       # GitHub Pages 網頁版
 └── README.md       # 專案說明文件
