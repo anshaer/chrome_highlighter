@@ -1,4 +1,5 @@
 // Copyright © 2026-2030 anshaer.com. All rights reserved.
+// Version: v1.1
 
 const PRESET_PATTERNS = {
   cyrillic: '[\\p{Script=Cyrillic}]',
