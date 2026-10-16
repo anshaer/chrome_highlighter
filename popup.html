@@ -11,13 +11,21 @@
       background-color: #f9fafb;
       color: #111827;
     }
-    h3 {
-      margin: 0 0 10px 0;
+    .header-title {
       font-size: 15px;
+      font-weight: bold;
       text-align: center;
+      margin-bottom: 10px;
       color: #1f2937;
     }
-    
+    .version-tag {
+      font-size: 11px;
+      color: #2563eb;
+      background: #eff6ff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 4px;
+    }
     .inspector-card {
       background: #ffffff;
       border: 1px solid #3b82f6;
@@ -162,25 +170,22 @@
   </style>
 </head>
 <body>
-  <h3>異樣字元與網址檢測器</h3>
+  <div class="header-title">
+    異樣字元與網址檢測器 <span class="version-tag">v1.1</span>
+  </div>
 
-  <!-- 1. 右鍵連結貼上檢測區 -->
   <div class="inspector-card">
     <label for="urlInspectorInput">🔍 連結 / 文字貼上即時檢測</label>
     <input type="text" id="urlInspectorInput" class="inspector-input" placeholder="右鍵複製連結後在此貼上 (Ctrl+V)...">
     <div id="inspectorResult" class="inspector-result">等待貼上內容檢測...</div>
   </div>
 
-  <!-- 2. 網頁頁面自動掃描開關 -->
   <div class="scan-status-card">
     <div id="statusText" class="status-text status-stopped">網頁自動掃描：已停止</div>
     <button id="toggleScanBtn" class="btn-start">開始掃描當前網頁</button>
   </div>
 
-  <!-- 3. 比對模式選單 -->
   <div class="modes-container">
-    
-    <!-- 西里爾字母 -->
     <div class="mode-card">
       <label class="mode-header">
         <input type="checkbox" id="m_cyrillic_enable"> 西里爾字母（偽造英文同形字）
@@ -191,7 +196,6 @@
       </div>
     </div>
 
-    <!-- 數學符號/花體字 -->
     <div class="mode-card">
       <label class="mode-header">
         <input type="checkbox" id="m_math_enable"> 特殊數學符號 / 花體字
@@ -202,10 +206,9 @@
       </div>
     </div>
 
-    <!-- 非 ASCII 字元 -->
     <div class="mode-card">
       <label class="mode-header">
-        <input type="checkbox" id="m_nonascii_enable"> 非 ASCII 字元（全形/特殊字）
+        <input type="checkbox" id="m_nonascii_enable"> 非 ASCII 字元（全形字與特殊標點）
       </label>
       <div class="mode-colors">
         <div class="color-picker-item"><span>背景</span><input type="color" id="m_nonascii_bg" value="#10b981"></div>
@@ -213,7 +216,6 @@
       </div>
     </div>
 
-    <!-- 自訂 Regex -->
     <div class="mode-card">
       <label class="mode-header">
         <input type="checkbox" id="m_custom_enable"> 自訂 Regular Expression
@@ -224,7 +226,6 @@
         <div class="color-picker-item"><span>字體</span><input type="color" id="m_custom_text" value="#ffffff"></div>
       </div>
     </div>
-
   </div>
 
   <button id="saveBtn">儲存規則設定</button>
