@@ -7,9 +7,6 @@
 * **📦 擴充功能一鍵下載 (ZIP)**：[點此直接下載 chrome_highlighter.zip](./chrome_highlighter.zip)
 * **當前版本**：`v1.1`
 
-![Manifest V3](https://img.shields.io/badge/Manifest-V3-blue.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
-
 ---
 
 ## 🧩 Chrome 瀏覽器安裝擴充功能步驟
