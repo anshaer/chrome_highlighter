@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "字元與網址檢測器",
+  "name": "✨字元與網址檢測器",
   "version": "1.1",
   "description": "自動偵測並高亮網頁中的混淆字元、同形字或特殊 Unicode 符號，並提供連結貼上即時檢測",
   "permissions": ["storage"],
