@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "如果您使用了這套軟體，請依以下格式引用："
+authors:
+  - family-names: "Wang"
+    given-names: "chieh-li"
+    orcid: "https://orcid.org/0009-0001-9788-3203"
+title: "chrome_highlighter"
+version: 1.0.0
+date-released: 2026-10-17
