@@ -4,7 +4,7 @@
 
 * **🌐 GitHub Pages 網頁展示版**：[https://anshaer.github.io/chrome_highlighter/](https://anshaer.github.io/chrome_highlighter/)
 * **🧪 線上測試頁面**：[https://anshaer.github.io/chrome_highlighter/test.html](https://anshaer.github.io/chrome_highlighter/test.html)
-* **📦 擴充功能一鍵下載 (ZIP)**：[點此直接下載 chrome_highlighter.zip]([https://anshaer.github.io/chrome_highlighter.zip](https://github.com/anshaer/chrome_highlighter/releases/download/v1.1/chrome_highlighter.zip))
+* **📦 擴充功能一鍵下載 (ZIP)**：[點此直接下載 chrome_highlighter.zip](https://github.com/anshaer/chrome_highlighter/releases/download/v1.1/chrome_highlighter.zip)
 * **當前版本**：`v1.1`
 
 ---
