@@ -2,11 +2,22 @@
 
 一個基於 **Chrome Manifest V3** 開發的擴充功能，專門用於偵測與標示網頁中的混淆字元、釣魚同形字（Homoglyphs，如用西里爾字母假冒英文）、特殊 Unicode 符號，並提供即時網址 / 連結貼上分析功能。
 
-* **GitHub Pages 網頁展示版**：[https://anshaer.github.io/chrome_highlighter/](https://anshaer.github.io/chrome_highlighter/)
+* **🌐 GitHub Pages 網頁展示版**：[https://anshaer.github.io/chrome_highlighter/](https://anshaer.github.io/chrome_highlighter/)
+* **📦 擴充功能一鍵下載 (ZIP)**：[點此直接下載 chrome_highlighter.zip](./chrome_highlighter.zip)
 * **當前版本**：`v1.1`
 
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
+
+---
+
+## 📦 快速下載（新手免操作 GitHub）
+
+如果你不熟悉 GitHub 操作，可以直接點擊下方連結下載預先打包好的擴充功能壓縮檔：
+
+👉 **[點此直接下載 chrome_highlighter.zip (v1.1)](./chrome_highlighter.zip)**
+
+下載後請先將 `.zip` 檔解壓縮，即可按照下方步驟安裝使用。
 
 ---
 
@@ -21,16 +32,19 @@
 * **🎨 模式獨立配色**：每個檢測模式皆可自訂「高亮背景色」與「文字顏色」。
 * **⏸️ 預設停止與一鍵開關**：純中文介面，開啟網頁時預設靜態不干擾，點擊「開始掃描」才即時作用。
 * **🔗 連結防護**：使用 `TreeWalker` 純文字節點替換技術，高亮同時完全不破壞文字超連結 (`<a>`) 與圖片超連結 (`<a><img />`) 的功能與排版。
+* **🧪 內建本地測試頁 (`test.html`)**：提供混用西里爾字母、花體字、全形標點、偽造文字連結與圖片連結的獨立範例頁面。
 
 ---
 
-## 📂 專案檔案結構與下載說明
+## 📂 專案檔案結構
 
 ```text
 chrome_highlighter/
-├── manifest.json   # 擴充功能核心設定檔 (v1.1)
-├── popup.html      # 純中文 UI 介面（含版權宣告）
-├── popup.js        # 檢測演算法與設定儲存邏輯
-├── content.js      # 網頁 DOM 注入與高亮渲染腳本
-├── index.html       # GitHub Pages 網頁版
-└── README.md       # 專案說明文件
+├── manifest.json          # 擴充功能核心設定檔 (v1.1)
+├── popup.html             # 純中文 UI 介面（含版權宣告）
+├── popup.js               # 檢測演算法與設定儲存邏輯
+├── content.js             # 網頁 DOM 注入與高亮渲染腳本
+├── index.html              # GitHub Pages 網頁版首頁
+├── test.html               # 測試用網頁範例（包含各類異字元與連結）
+├── chrome_highlighter.zip # 預先打包之擴充功能壓縮檔（免 Git 一鍵下載）
+└── README.md              # 專案說明文件
