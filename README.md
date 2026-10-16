@@ -1,0 +1,32 @@
+# 🛡️ 異樣字元與網址檢測器 (Char Highlighter & URL Inspector)
+
+一個基於 **Chrome Manifest V3** 開發的擴充功能，專門用於偵測與標示網頁中的混淆字元、釣魚同形字（Homoglyphs，如用西里爾字母假冒英文）、特殊 Unicode 符號，並提供即時網址 / 連結貼上分析功能。
+
+![Manifest V3](https://img.shields.io/badge/Manifest-V3-blue.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+
+---
+
+## ✨ 主要功能
+
+* **🔍 網址 / 連結貼上即時檢測**：複製任何文字或圖片連結貼上，即可自動解析是否含有混淆字元，還原真實 Punycode 網域，並列出每個字元的 Unicode 碼點。
+* **🌐 異樣字元自動高亮**：
+  * **西里爾字母 (Cyrillic)**：防範偽造英文字母（如 `рaypal.com` 中的 `р`）。
+  * **特殊數學符號 / 花體字** (Math Unicode)
+  * **非 ASCII 字元**（全形字與特殊標點）
+  * **自訂 Regular Expression**
+* **🎨 模式獨立配色**：每個檢測模式皆可自訂「高亮背景色」與「文字顏色」。
+* **⏸️ 預設停止與一鍵開關**：純中文介面，開啟網頁時預設靜態不干擾，點擊「開始掃描」才即時作用。
+* **🔗 連結防護**：使用 `TreeWalker` 純文字節點替換技術，高亮同時完全不破壞文字超連結 (`<a>`) 與圖片超連結 (`<a><img />`) 的功能與排版。
+
+---
+
+## 📂 專案檔案結構
+
+```text
+char-highlighter/
+├── manifest.json   # 擴充功能核心設定檔 (Manifest V3)
+├── popup.html      # 純中文 UI 介面（含版權宣告）
+├── popup.js        # 檢測演算法與設定儲存邏輯
+├── content.js      # 網頁 DOM 注入與高亮渲染腳本
+└── README.md       # 專案說明文件
