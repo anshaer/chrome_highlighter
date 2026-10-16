@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "異樣字元與網址檢測器",
+  "version": "1.0",
+  "description": "自動偵測並高亮網頁中的混淆字元、同形字或特殊 Unicode 符號，並提供連結貼上即時檢測",
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
