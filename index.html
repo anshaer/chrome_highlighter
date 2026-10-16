@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>異樣字元與網址檢測器 v1.1 - 線上測試版</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+      background-color: #f3f4f6;
+      color: #1f2937;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 540px;
+      margin: 0 auto;
+      width: 100%;
+      flex: 1;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 20px;
+      margin: 0 0 12px 0;
+      text-align: center;
+      color: #111827;
+    }
+    .version-tag {
+      font-size: 12px;
+      color: #2563eb;
+      background: #eff6ff;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    label.field-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+    textarea {
+      width: 100%;
+      height: 90px;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      resize: vertical;
+      outline: none;
+      font-family: inherit;
+    }
+    textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    }
+
+    /* 模式選擇關卡 */
+    .filter-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 12px 0;
+      background: #f9fafb;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .custom-regex-input {
+      width: 100%;
+      padding: 6px;
+      font-size: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    button {
+      flex: 1;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary { background-color: #2563eb; color: white; }
+    .btn-secondary { background-color: #e5e7eb; color: #374151; }
+
+    .result-box {
+      font-size: 13px;
+      line-height: 1.6;
+      word-break: break-all;
+    }
+    .badge-safe {
+      color: #15803d;
+      background-color: #dcfce7;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .badge-danger {
+      color: #b91c1c;
+      background-color: #fee2e2;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .preview-box {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+    .char-badge {
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+    .details-list {
+      margin-top: 10px;
+      padding-left: 0;
+      list-style: none;
+    }
+    .details-list li {
+      padding: 4px 0;
+      border-bottom: 1px dashed #e5e7eb;
+      font-size: 12px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: #9ca3af;
+      padding: 16px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <h1>🔍 異樣字元與網址檢測器 <span class="version-tag">v1.1</span></h1>
+      
+      <label for="inputText" class="field-label">請貼上要檢測的連結或文字：</label>
+      <textarea id="inputText" placeholder="在此貼上 (Paste) 網址或文字..."></textarea>
+
+      <!-- 勾選檢測模式 -->
+      <div class="filter-options">
+        <span style="font-size:12px; font-weight:bold; color:#4b5563;">啟用檢測模式：</span>
+        
+        <label class="option-item">
+          <input type="checkbox" id="chk_cyrillic" checked>
+          西里爾字母（偽造英文同形字）
+        </label>
+        
+        <label class="option-item">
+          <input type="checkbox" id="chk_math" checked>
+          特殊數學符號 / 花體字 (Math Unicode)
+        </label>
+        
+        <label class="option-item">
+          <input type="checkbox" id="chk_nonascii" checked>
+          非 ASCII 字元（全形字與特殊標點）
+        </label>
+
+        <label class="option-item" style="flex-direction:column; align-items:flex-start;">
+          <div><input type="checkbox" id="chk_custom"> 自訂 Regular Expression</div>
+          <input type="text" id="custom_pattern" class="custom-regex-input" placeholder="例如: [\\uFF00-\\uFFEF]">
+        </label>
+      </div>
+
+      <div class="btn-group">
+        <button id="clearBtn" class="btn-secondary">清除內容</button>
+        <button id="pasteBtn" class="btn-primary">一鍵貼上並檢測</button>
+      </div>
+    </div>
+
+    <div class="card" id="resultCard" style="display: none;">
+      <label class="field-label">分析結果：</label>
+      <div id="resultContent" class="result-box"></div>
+    </div>
+  </div>
+
+  <footer>
+    Copyright © 2026-2030 anshaer.com. All rights reserved.
+  </footer>
+
+  <script>
+    const inputText = document.getElementById('inputText');
+    const clearBtn = document.getElementById('clearBtn');
+    const pasteBtn = document.getElementById('pasteBtn');
+    const resultCard = document.getElementById('resultCard');
+    const resultContent = document.getElementById('resultContent');
+
+    const chkCyrillic = document.getElementById('chk_cyrillic');
+    const chkMath = document.getElementById('chk_math');
+    const chkNonascii = document.getElementById('chk_nonascii');
+    const chkCustom = document.getElementById('chk_custom');
+    const customPattern = document.getElementById('custom_pattern');
+
+    [inputText, chkCyrillic, chkMath, chkNonascii, chkCustom, customPattern].forEach(el => {
+      el.addEventListener('input', analyzeText);
+      el.addEventListener('change', analyzeText);
+    });
+
+    clearBtn.addEventListener('click', () => {
+      inputText.value = '';
+      resultCard.style.display = 'none';
+    });
+
+    pasteBtn.addEventListener('click', async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        inputText.value = text;
+        analyzeText();
+      } catch (err) {
+        inputText.focus();
+        alert('請在輸入框內貼上文字');
+      }
+    });
+
+    function analyzeText() {
+      const text = inputText.value.trim();
+      if (!text) {
+        resultCard.style.display = 'none';
+        return;
+      }
+
+      resultCard.style.display = 'block';
+
+      // 建立當前選取的檢測規則
+      const activeRules = [];
+      if (chkCyrillic.checked) {
+        activeRules.push({ name: '西里爾字母（偽造英文）', regex: /\p{Script=Cyrillic}/u, bg: '#ff2a5f', text: '#ffffff' });
+      }
+      if (chkMath.checked) {
+        activeRules.push({ name: '特殊數學符號 / 花體字', regex: /[\u{1D400}-\u{1D7FF}]/u, bg: '#2563eb', text: '#ffffff' });
+      }
+      if (chkNonascii.checked) {
+        activeRules.push({ name: '非 ASCII 字元（全形/特殊標點）', regex: /[\uFF00-\uFFEF]/u, bg: '#10b981', text: '#ffffff' });
+      }
+      if (chkCustom.checked && customPattern.value.trim()) {
+        try {
+          const reg = new RegExp(customPattern.value.trim(), 'u');
+          activeRules.push({ name: '自訂 Regex 匹配', regex: reg, bg: '#f59e0b', text: '#ffffff' });
+        } catch (e) {}
+      }
+
+      const foundList = [];
+      let previewHtml = '';
+
+      for (const char of text) {
+        const code = char.codePointAt(0);
+        
+        // 標準 ASCII 可列印字元 (32-126)
+        if (code >= 32 && code <= 126) {
+          previewHtml += escapeHtml(char);
+          continue;
+        }
+
+        let match = null;
+        for (const rule of activeRules) {
+          if (rule.regex.test(char)) {
+            match = rule;
+            break;
+          }
+        }
+
+        if (match) {
+          foundList.push({
+            char,
+            hex: `U+${code.toString(16).toUpperCase().padStart(4, '0')}`,
+            script: match.name
+          });
+          previewHtml += `<span class="char-badge" style="background-color:${match.bg}; color:${match.text};">${escapeHtml(char)}</span>`;
+        } else {
+          previewHtml += escapeHtml(char);
+        }
+      }
+
+      let html = '';
+
+      if (foundList.length === 0) {
+        html = `<div class="badge-safe">✓ 安全</div> <span style="font-size:13px; color:#4b5563;">未發現非標準 ASCII 或已勾選的異語系字元。</span>`;
+      } else {
+        html += `<div class="badge-danger">⚠️ 警告：發現 ${foundList.length} 個非標準/混淆字元！</div>`;
+        
+        try {
+          const urlObj = new URL(text.startsWith('http') ? text : `http://${text}`);
+          html += `<div style="margin-top:8px; color:#4b5563;"><b>還原真實域名：</b> <span style="color:#2563eb;">${escapeHtml(urlObj.hostname)}</span></div>`;
+        } catch (e) {}
+
+        html += `<div style="margin-top:10px;"><b>字元高亮預覽：</b></div>`;
+        html += `<div class="preview-box">${previewHtml}</div>`;
+
+        html += `<div style="margin-top:10px;"><b>字元明細資料：</b></div>`;
+        html += `<ul class="details-list">`;
+        foundList.forEach(item => {
+          html += `<li>字元 <b style="color:#ef4444; font-size:14px;">${escapeHtml(item.char)}</b> (${item.hex}) - ${item.script}</li>`;
+        });
+        html += `</ul>`;
+      }
+
+      resultContent.innerHTML = html;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>
