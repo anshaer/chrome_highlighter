@@ -12,16 +12,6 @@
 
 ---
 
-## 📦 快速下載與解壓縮
-
-如果你不熟悉 GitHub 操作，可以直接點擊下方連結下載預先打包好的擴充功能壓縮檔：
-
-👉 **[點此直接下載 chrome_highlighter.zip (v1.1)](./chrome_highlighter.zip)**
-
-下載後請先將 `chrome_highlighter.zip` **解壓縮至電腦中的任意資料夾**。
-
----
-
 ## 🧩 Chrome 瀏覽器安裝擴充功能步驟
 
 請按照以下步驟將擴充功能載入至 Chrome 瀏覽器：
@@ -33,7 +23,7 @@
 3. **載入擴充功能**：
    點擊左上角出現的 **「載入未打包擴充功能」（Load unpacked）** 按鈕。
 4. **選取資料夾**：
-   選擇剛解壓縮出來、包含 `manifest.json` 的 `chrome_highlighter` 資料夾，即可完成安裝！
+   選擇剛解壓縮出來、chrome_highlighter` 資料夾，即可完成安裝！
 5. **開啟本地檔案權限（選填，測試 `test.html` 用）**：
    若要在本地電腦開啟 `test.html` 進行測試，請在擴充功能卡片點選 **「詳細資料」（Details）**，將 **「允許存取檔案網址」（Allow access to file URLs）** 開關開啟。
 
