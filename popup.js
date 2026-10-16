@@ -1,9 +1,10 @@
 // Copyright © 2026-2030 anshaer.com. All rights reserved.
+// Version: v1.1
 
 const SCRIPT_DETECTORS = [
   { name: '西里爾字母（偽造英文）', regex: /\p{Script=Cyrillic}/u },
-  { name: '特殊數學符號/花體字', regex: /[\u{1D400}-\u{1D7FF}]/u },
-  { name: '全形字/特殊字', regex: /[\uFF00-\uFFEF]/u }
+  { name: '特殊數學符號 / 花體字', regex: /[\u{1D400}-\u{1D7FF}]/u },
+  { name: '非 ASCII 字元（全形/特殊標點）', regex: /[\uFF00-\uFFEF]/u }
 ];
 
 const KEYS = ['cyrillic', 'math', 'nonascii'];
