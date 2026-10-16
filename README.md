@@ -42,7 +42,7 @@
 <!-- 調整寬度與置中範例 -->
 <p align="center">
   <img src="./01.png"  width="300">
-    <img src="./02.png"  width="600">
+    <img src="./02.png"  width="500">
 </p>
 
 
