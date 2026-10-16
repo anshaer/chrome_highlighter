@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 320px;
+      padding: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+      margin: 0;
+      background-color: #f9fafb;
+      color: #111827;
+    }
+    h3 {
+      margin: 0 0 10px 0;
+      font-size: 15px;
+      text-align: center;
+      color: #1f2937;
+    }
+    
+    .inspector-card {
+      background: #ffffff;
+      border: 1px solid #3b82f6;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 3px rgba(59, 130, 246, 0.1);
+    }
+    .inspector-card label {
+      font-size: 12px;
+      font-weight: bold;
+      color: #1d4ed8;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .inspector-input {
+      width: 100%;
+      padding: 6px 8px;
+      font-size: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    .inspector-result {
+      margin-top: 8px;
+      font-size: 11px;
+      line-height: 1.5;
+      max-height: 90px;
+      overflow-y: auto;
+      background: #f3f4f6;
+      padding: 6px 8px;
+      border-radius: 4px;
+      word-break: break-all;
+    }
+    .badge-danger { color: #dc2626; font-weight: bold; }
+    .badge-safe { color: #16a34a; font-weight: bold; }
+
+    .scan-status-card {
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .status-text {
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    .status-stopped { color: #ef4444; }
+    .status-running { color: #10b981; }
+    
+    #toggleScanBtn {
+      width: 100%;
+      padding: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-start { background-color: #10b981; color: white; }
+    .btn-stop { background-color: #ef4444; color: white; }
+
+    .modes-container {
+      max-height: 200px;
+      overflow-y: auto;
+      padding-right: 2px;
+      margin-bottom: 10px;
+    }
+    .mode-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 6px 8px;
+      margin-bottom: 6px;
+    }
+    .mode-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .mode-colors {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      padding-top: 4px;
+      border-top: 1px dashed #f3f4f6;
+      font-size: 11px;
+      color: #6b7280;
+    }
+    .color-picker-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    input[type="color"] {
+      width: 20px;
+      height: 20px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 1px;
+      background: none;
+    }
+    .custom-input {
+      width: 100%;
+      padding: 4px 6px;
+      font-size: 11px;
+      margin-top: 4px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    #saveBtn {
+      width: 100%;
+      padding: 8px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    #saveBtn:hover { background-color: #1d4ed8; }
+
+    .footer {
+      margin-top: 12px;
+      padding-top: 8px;
+      border-top: 1px solid #e5e7eb;
+      text-align: center;
+      font-size: 10px;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+<body>
+  <h3>異樣字元與網址檢測器</h3>
+
+  <!-- 1. 右鍵連結貼上檢測區 -->
+  <div class="inspector-card">
+    <label for="urlInspectorInput">🔍 連結 / 文字貼上即時檢測</label>
+    <input type="text" id="urlInspectorInput" class="inspector-input" placeholder="右鍵複製連結後在此貼上 (Ctrl+V)...">
+    <div id="inspectorResult" class="inspector-result">等待貼上內容檢測...</div>
+  </div>
+
+  <!-- 2. 網頁頁面自動掃描開關 -->
+  <div class="scan-status-card">
+    <div id="statusText" class="status-text status-stopped">網頁自動掃描：已停止</div>
+    <button id="toggleScanBtn" class="btn-start">開始掃描當前網頁</button>
+  </div>
+
+  <!-- 3. 比對模式選單 -->
+  <div class="modes-container">
+    
+    <!-- 西里爾字母 -->
+    <div class="mode-card">
+      <label class="mode-header">
+        <input type="checkbox" id="m_cyrillic_enable"> 西里爾字母（偽造英文同形字）
+      </label>
+      <div class="mode-colors">
+        <div class="color-picker-item"><span>背景</span><input type="color" id="m_cyrillic_bg" value="#ff2a5f"></div>
+        <div class="color-picker-item"><span>字體</span><input type="color" id="m_cyrillic_text" value="#ffffff"></div>
+      </div>
+    </div>
+
+    <!-- 數學符號/花體字 -->
+    <div class="mode-card">
+      <label class="mode-header">
+        <input type="checkbox" id="m_math_enable"> 特殊數學符號 / 花體字
+      </label>
+      <div class="mode-colors">
+        <div class="color-picker-item"><span>背景</span><input type="color" id="m_math_bg" value="#2563eb"></div>
+        <div class="color-picker-item"><span>字體</span><input type="color" id="m_math_text" value="#ffffff"></div>
+      </div>
+    </div>
+
+    <!-- 非 ASCII 字元 -->
+    <div class="mode-card">
+      <label class="mode-header">
+        <input type="checkbox" id="m_nonascii_enable"> 非 ASCII 字元（全形/特殊字）
+      </label>
+      <div class="mode-colors">
+        <div class="color-picker-item"><span>背景</span><input type="color" id="m_nonascii_bg" value="#10b981"></div>
+        <div class="color-picker-item"><span>字體</span><input type="color" id="m_nonascii_text" value="#ffffff"></div>
+      </div>
+    </div>
+
+    <!-- 自訂 Regex -->
+    <div class="mode-card">
+      <label class="mode-header">
+        <input type="checkbox" id="m_custom_enable"> 自訂 Regular Expression
+      </label>
+      <input type="text" id="m_custom_pattern" class="custom-input" placeholder="例如: [\\uFF00-\\uFFEF]">
+      <div class="mode-colors">
+        <div class="color-picker-item"><span>背景</span><input type="color" id="m_custom_bg" value="#f59e0b"></div>
+        <div class="color-picker-item"><span>字體</span><input type="color" id="m_custom_text" value="#ffffff"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <button id="saveBtn">儲存規則設定</button>
+
+  <div class="footer">
+    Copyright © 2026-2030 anshaer.com. All rights reserved.
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
